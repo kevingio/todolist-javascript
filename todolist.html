@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;550;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css">
+    <!-- Font Awesome, Themify, Material Design Icons, Material Icons, dsb -->
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <p class="page-title">TODO<span class="text-light">List</span></p>
+    
+        <div id="todoListWrapper"></div>
+
+        <hr>
+    
+        <p class="font-weight-medium">Task</p>
+        <input type="text" id="iptTaskName">
+        <p class="font-weight-medium">Name</p>
+        <input type="text" id="iptName">
+        <center>
+            <button type="button" class="submit" onclick="addToList()">Add to list</button>
+        </center>
+    </div>
+</body>
+</html>
