@@ -1,77 +1,53 @@
-// mendefinisikan sebuah variable
-const todoList = [];
+var todoList = [];
 
-// select sebuah element dari HTML
-const todoListWrapper = document.getElementById("todoListWrapper");
+var paragraphTag = document.getElementsByTagName('p');
 
-function addToList() {
-    // mengambil input data
-    const iptTaskName = document.getElementById("iptTaskName");
-    const iptName = document.getElementById("iptName");
-
-    // melakukan pengecekan apakah data kosong atau tidak
-    if (iptTaskName.value == "" || iptName.value == "") {
-        return;
-    }
-
-    // menambahkan data baru ke dalam sebuah array
-    todoList.push({
-        name: iptName.value,
-        task: iptTaskName.value,
-    });
-
-    // memngosongkan input value
-    iptTaskName.value = "";
-    iptName.value = "";
-
-    // render ulang isi list
-    renderList();
-}
-
-function removeFromList() {
-    // mengambil attribute index pada element remove button
-    const index = this.getAttribute("index");
-
-    // menghapus data dari list
+function deleteList(index) {
     todoList.splice(index, 1);
-
-    // render ulang isi list
-    renderList();
+    printData();
 }
 
-function renderList() {
-    // mengosongkan children terlebih dahulu
+function printData() {
+    var todoListWrapper = document.getElementById("todoListWrapper");
     todoListWrapper.innerHTML = "";
 
-    // cek apakah list sudah ada isinya atau belum
-    if (!todoList.length) {
-        // jika list kosong maka akan merender list is empty!
-        todoListWrapper.innerHTML = "<p>List is empty!</p>";
-        return;
-    }
-
-    // looping ke dalam array untuk mendapatkan setiap data di dalam array tsb
     for (let index = 0; index < todoList.length; index++) {
-        const list = todoList[index];
+        var listData = todoList[index];
 
-        // membuat element untuk list task
-        const newListElement = document.createElement("div");
-        newListElement.className = "list-card";
-        newListElement.innerText = list.name + " - " + list.task;
+        var container = document.createElement("div");
+        container.className = "list-card";
 
-        // membuat remove button
-        const removeButton = document.createElement("span");
-        removeButton.innerHTML = '<i class="btn-delete ti-trash"></i>';
-        removeButton.setAttribute("index", index);
-        removeButton.addEventListener("click", removeFromList);
+        var inputWrapper = document.createElement('div');
+        inputWrapper.className = "input-wrapper";
 
-        // menambahkan remove button  ke dalam list element
-        newListElement.appendChild(removeButton);
+        var list = document.createElement('p');
+        list.innerText = listData.task + " - " + listData.name;
 
-        // menambahkan list ke dalam collection
-        todoListWrapper.appendChild(newListElement);
+        inputWrapper.appendChild(list);
+
+        var btnDelete = document.createElement('i');
+        btnDelete.className = "btn-delete ti-trash";
+        btnDelete.setAttribute("data-index", index);
+        btnDelete.addEventListener("click", function () {
+            deleteList(index);
+        });
+
+        container.appendChild(inputWrapper);
+        container.appendChild(btnDelete);
+        todoListWrapper.appendChild(container);
     }
 }
 
-// render isi list
-renderList();
+function addToList() {
+    var iptTaskName = document.getElementById("iptTaskName");
+    var iptName = document.getElementById("iptName");
+    todoList.push({
+        task: iptTaskName.value,
+        name: iptName.value,
+    });
+
+    iptTaskName.value = '';
+    iptName.value = "";
+
+    printData();
+}
